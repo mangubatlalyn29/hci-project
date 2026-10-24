@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "../../.."
+	},
+	{
+		"path": "../../../../OneDrive/Documents/dacua-profile/my-project"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "hci-project"
+  }
+}

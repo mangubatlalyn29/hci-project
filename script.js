@@ -11,6 +11,16 @@
       const expandedArtwork = document.getElementById('expandedArtwork');
       const projectCards = [...document.querySelectorAll('.project-card')];
       const expandedArtworkImage = document.getElementById('expandedArtworkImage');
+      const certificateCarousel = document.getElementById('certificateCarousel');
+      const certificateImage = document.getElementById('certificateImage');
+      const certificateCount = document.getElementById('certificateCount');
+      const previousCertificate = document.getElementById('previousCertificate');
+      const nextCertificate = document.getElementById('nextCertificate');
+      const certificates = Array.from(
+        { length: 20 },
+        (_, index) => `./src/assets/certificates/cert${index + 1}.jpg`
+      );
+      let currentCertificate = 0;
       const riddles = [
         {
           question: 'I have keys but no locks, space but no room. You can enter, but not go in. What am I?',
@@ -52,6 +62,14 @@
           tourProgress.style.width = `${Math.min(100, Math.max(0, progress * 100))}%`;
           progressFrame = 0;
         });
+      }
+
+      function showCertificate(index) {
+        currentCertificate = (index + certificates.length) % certificates.length;
+        const certificateNumber = currentCertificate + 1;
+        certificateImage.src = certificates[currentCertificate];
+        certificateImage.alt = `Certificate ${certificateNumber} of ${certificates.length}`;
+        certificateCount.textContent = `Certificate ${certificateNumber} of ${certificates.length}`;
       }
 
       function animateArtworkToCard(card, opening) {
@@ -152,6 +170,21 @@
             openArtwork(card);
           }
         });
+      });
+      previousCertificate.addEventListener('click', () => {
+        showCertificate(currentCertificate - 1);
+      });
+      nextCertificate.addEventListener('click', () => {
+        showCertificate(currentCertificate + 1);
+      });
+      certificateCarousel.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          showCertificate(currentCertificate - 1);
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          showCertificate(currentCertificate + 1);
+        }
       });
       artworkReturn.addEventListener('click', closeArtwork);
       document.addEventListener('keydown', (event) => {
